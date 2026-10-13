@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HealthCare Pro</title>
+    <style>
+      :root {
+        --bg: #f5fbf9;
+        --panel: #ffffff;
+        --primary: #2bb673;
+        --primary-dark: #1f9d60;
+        --accent: #dff7eb;
+        --text: #18362f;
+        --muted: #5e7a73;
+        --line: #dfeee8;
+        --shadow: 0 20px 50px rgba(33, 87, 67, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, #ebfff3 0%, #f7fbfa 45%, #ffffff 100%);
+        color: var(--text);
+      }
+
+      a { text-decoration: none; color: inherit; }
+      img { max-width: 100%; display: block; }
+
+      .container {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+        background: rgba(247, 251, 250, 0.9);
+        border-bottom: 1px solid rgba(130, 171, 161, 0.18);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 78px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), #92e3b9);
+        display: grid;
+        place-items: center;
+        color: white;
+        font-weight: 900;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 999px;
+        padding: 0.9rem 1.5rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        box-shadow: 0 8px 26px rgba(43, 182, 115, 0.3);
+      }
+
+      .btn-outline {
+        background: white;
+        color: var(--text);
+        border: 1px solid var(--line);
+      }
+
+      .hero {
+        padding: 72px 0 48px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 34px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--accent);
+        color: var(--primary-dark);
+        border: 1px solid #ccefe0;
+        border-radius: 999px;
+        padding: 0.55rem 0.9rem;
+        font-size: 0.82rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: clamp(2.7rem, 4vw, 5rem);
+        line-height: 1.04;
+        margin: 0 0 18px;
+        letter-spacing: -0.05em;
+      }
+
+      .lead {
+        font-size: 1.07rem;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 600px;
+        margin-bottom: 28px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 30px;
+      }
+
+      .mini-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .mini-stat {
+        background: rgba(255,255,255,0.78);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 16px 18px;
+        min-width: 150px;
+      }
+
+      .mini-stat strong {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+      }
+
+      .mini-stat span {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .hero-visual {
+        position: relative;
+        display: grid;
+        place-items: center;
+      }
+
+      .card-main {
+        background: linear-gradient(180deg, #ffffff 0%, #eafaf2 100%);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        width: min(100%, 460px);
+        padding: 20px;
+      }
+
+      .doctor-panel {
+        background: linear-gradient(135deg, #d9faea 0%, #f7fffb 100%);
+        border: 1px solid #d7f4e5;
+        border-radius: 22px;
+        padding: 18px;
+      }
+
+      .doctor-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .doctor-avatar {
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #7de0af, #d5f7e8);
+        display: grid;
+        place-items: center;
+        font-size: 1.7rem;
+      }
+
+      .status-pill {
+        background: #fff;
+        color: var(--primary-dark);
+        border-radius: 999px;
+        border: 1px solid #d7f0e2;
+        padding: 0.4rem 0.7rem;
+        font-weight: 700;
+        font-size: 0.75rem;
+      }
+
+      .doctor-name {
+        margin-top: 18px;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+
+      .doctor-role {
+        color: var(--muted);
+        margin-top: 4px;
+        font-size: 0.92rem;
+      }
+
+      .info-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px 16px;
+        margin-top: 16px;
+      }
+
+      .info-box strong { display: block; }
+      .info-box span { color: var(--muted); font-size: 0.8rem; }
+
+      .floating-card {
+        position: absolute;
+        right: -10px;
+        bottom: 30px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 16px 18px;
+        min-width: 190px;
+      }
+
+      .floating-card .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+        color: var(--muted);
+      }
+
+      .progress {
+        width: 100%;
+        height: 10px;
+        background: #ebf5f1;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .progress-bar {
+        width: 76%;
+        height: 100%;
+        background: linear-gradient(90deg, #2bb673, #87ddab);
+        border-radius: inherit;
+      }
+
+      .section {
+        padding: 34px 0 20px;
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 26px;
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        font-size: clamp(1.9rem, 3vw, 3rem);
+        letter-spacing: -0.04em;
+      }
+
+      .services {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .service {
+        background: rgba(255,255,255,0.94);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 24px 20px;
+        box-shadow: 0 12px 28px rgba(19, 77, 58, 0.04);
+      }
+
+      .icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: #e9fbf1;
+        color: var(--primary-dark);
+        font-size: 1.5rem;
+        margin-bottom: 18px;
+      }
+
+      .service h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+      }
+
+      .service p {
+        margin: 0;
+        line-height: 1.65;
+        color: var(--muted);
+      }
+
+      .cta {
+        background: linear-gradient(135deg, #062c20 0%, #123e32 100%);
+        color: white;
+        border-radius: 30px;
+        padding: 36px 38px;
+        margin: 48px auto 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .cta h3 {
+        margin: 0 0 10px;
+        font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+        letter-spacing: -0.04em;
+      }
+
+      .cta p {
+        margin: 0;
+        color: rgba(255,255,255,0.78);
+      }
+
+      footer {
+        padding: 16px 0 48px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 860px) {
+        .nav-links { display: none; }
+        .hero-grid, .services, .cta { grid-template-columns: 1fr; display: grid; }
+        .cta { padding: 28px 20px; }
+        .section-heading { align-items: flex-start; flex-direction: column; }
+      }
+
+      @media (max-width: 560px) {
+        .nav-actions { gap: 8px; }
+        .btn { padding: 0.8rem 1.1rem; }
+        .hero { padding-top: 42px; }
+        h1 { font-size: 2.5rem; }
+        .mini-stats { display: grid; grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="brand-mark">+</div>
+          HealthCare Pro
+        </div>
+
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn btn-outline" type="button">Sign In</button>
+          <button class="btn btn-primary" type="button">Book Visit</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">✔ Trusted care for every stage of life</div>
+            <h1>Your health deserves a brighter future.</h1>
+            <p class="lead">
+              Personalized medical guidance, preventive checkups, and compassionate support
+              designed to help you live stronger, healthier, and happier every day.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button">Make an Appointment</button>
+              <button class="btn btn-outline" type="button">Learn More</button>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat">
+                <strong>24/7</strong>
+                <span>Emergency support</span>
+              </div>
+              <div class="mini-stat">
+                <strong>15k+</strong>
+                <span>Happy patients</span>
+              </div>
+              <div class="mini-stat">
+                <strong>4.9/5</strong>
+                <span>Patient rating</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="Doctor appointment panel">
+            <div class="card-main">
+              <div class="doctor-panel">
+                <div class="doctor-header">
+                  <div class="doctor-avatar">👩‍⚕️</div>
+                  <div class="status-pill">Available today</div>
+                </div>
+
+                <div class="doctor-name">Dr. Sofia Lee</div>
+                <div class="doctor-role">Primary Care Physician</div>
+
+                <div class="info-box">
+                  <div>
+                    <strong>Next Consultation</strong>
+                    <span>Tue, 10:30 AM</span>
+                  </div>
+                  <div>📅</div>
+                </div>
+
+                <div class="info-box">
+                  <div>
+                    <strong>Wellness Score</strong>
+                    <span>76% this month</span>
+                  </div>
+                  <div>💚</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="floating-card">
+              <div style="font-weight:700;">Progress</div>
+              <div class="row">
+                <span>Recovery</span>
+                <strong>76%</strong>
+              </div>
+              <div class="progress">
+                <div class="progress-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Our services</h2>
+            <button class="btn btn-outline" type="button">View all care plans</button>
+          </div>
+
+          <div class="services">
+            <article class="service">
+              <div class="icon">🩺</div>
+              <h3>General Care</h3>
+              <p>Comprehensive checkups and routine wellness consultations for every age.</p>
+            </article>
+
+            <article class="service">
+              <div class="icon">💊</div>
+              <h3>Preventive Medicine</h3>
+              <p>Early detection and long-term strategies to help protect your health.</p>
+            </article>
+
+            <article class="service">
+              <div class="icon">🧠</div>
+              <h3>Stress & Wellness</h3>
+              <p>Holistic support that balances mind, body, and lifestyle for better outcomes.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="container section" id="about">
+        <div class="cta">
+          <div>
+            <h3>Better health starts with the right team.</h3>
+            <p>From preventive care to personalized treatment, we are here to support your journey.</p>
+          </div>
+          <button class="btn btn-primary" type="button">Schedule Today</button>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div class="container">© 2026 HealthCare Pro. Designed for better living.</div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (button.textContent.includes("Schedule") || button.textContent.includes("Appointment") || button.textContent.includes("Book")) {
+              alert("Your appointment request has been received. Our team will contact you soon.");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
